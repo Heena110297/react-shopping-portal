@@ -1,0 +1,49 @@
+{
+    "mobiles": [
+      {
+        "id": 1,
+        "brand": "One plus",
+        "name": "One plus 8",
+        "price": "50000",
+        "battery": "4300 mAh",
+        "display" :"6.5 inch",
+        "image":"https://images-na.ssl-images-amazon.com/images/I/61FRLa8IFTL._SL1500_.jpg",
+        "performance": {
+            "ram" : "6 GB",
+            "processor" : "Qualcomm Snapdragon 865"
+        },
+        "os" : "Android 10",
+        "storage" : "128 GB"
+      },
+      {
+        "id": 2,
+        "brand": "Samsung",
+        "name" : "Samsung S10",
+        "price": "51000",
+        "battery": "4100 mAh",
+        "display" :"6 inch",
+        "image":"https://images-na.ssl-images-amazon.com/images/I/71T0KJFxCHL._SL1500_.jpg",
+        "performance": {
+            "ram" : "6 GB",
+            "processor" : "Qualcomm Snapdragon 865"
+        },
+        "os" : "Android 10",
+        "storage" : "128 GB"
+      },
+      {
+        "id": 3,
+        "brand": "Apple",
+        "name" : "Apple X",
+        "price": "100000",
+        "battery": "3300 mAh",
+        "display" :"5 inch",
+        "image":"https://images-na.ssl-images-amazon.com/images/I/411SxsDFpsL._SL1024_.jpg",
+        "performance": {
+            "ram" : "4 GB",
+            "processor" : "Qualcomm Snapdragon 865"
+        },
+        "os" : "IOS",
+        "storage" : "64 GB"
+      }
+    ]
+  }
