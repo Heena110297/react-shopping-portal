@@ -82,7 +82,7 @@ class MobileDetail extends React.Component {
           </tr>
           <tr>
             <th>Price</th>
-            <td>{this.props.data.price}</td>
+            <td><i className="fa fa-inr"></i> {this.props.data.price}</td>
           </tr>
           <tr>
             <th>Display</th>

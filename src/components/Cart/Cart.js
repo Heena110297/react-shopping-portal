@@ -71,18 +71,18 @@ class Cart extends Component {
                   <Image src={item.image} height="100px" width="auto"></Image>{" "}
                 </td>
                 <td>{item.name}</td>
-                <td>{item.price}</td>
+                <td><i className="fa fa-inr"></i> {item.price}</td>
                 <td>
                   {item.qty}
                   <br>
                   </br>
-                  <button onClick={this.addToCart(item)} >
+                  <button onClick={() => this.addToCart(item)} >
                   <i className="fa fa-plus"></i> 
                 </button>
                   <button><i className="fa fa-minus"></i> </button>
                 </td>
                 <td>
-                 {item.qty * item.price}
+                 <i className="fa fa-inr"></i> {item.qty * item.price}
                 </td>
               </tr>
             ))}

@@ -66,7 +66,7 @@ class Mobiles extends React.Component {
           <thead>
             <tr>
               <th>Image</th>
-              <th>Brand</th>
+              <th>Name</th>
               <th>Price</th>
               <th>Details</th>
               <th>Add to cart</th>
@@ -78,8 +78,8 @@ class Mobiles extends React.Component {
                 <td>
                   <Image src={u.image} height="100px" width="auto"></Image>{" "}
                 </td>
-                <td>{u.brand}</td>
-                <td>{u.price}</td>
+                <td>{u.name}</td>
+                <td><i className="fa fa-inr"></i> {u.price}</td>
                 <td>
                   <Button onClick={() => this.viewDetails(u.id)}>
                     View Details
