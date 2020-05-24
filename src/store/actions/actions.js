@@ -6,6 +6,9 @@ export const LOAD_MOBILES_ERROR = 'REDUX_THUNK_LOAD_MOBILES_ERROR';
 export const LOAD_MOBILE_DETAIL_LOADING = 'REDUX_THUNK_LOAD_MOBILE_DETAIL_LOADING';
 export const LOAD_MOBILE_DETAIL_SUCCESS = 'REDUX_THUNK_LOAD_MOBILE_DETAIL_SUCCESS';
 export const LOAD_MOBILE_DETAIL_ERROR = 'REDUX_THUNK_LOAD_MOBILE_DETAIL_ERROR';
+export const CART_ADD_MOBILE_LOADING = 'REDUX_THUNK_LOAD_MOBILES_LOADING';
+export const CART_ADD_MOBILE_SUCCESS = 'REDUX_THUNK_LOAD_MOBILES_SUCCESS';
+export const CART_ADD_MOBILE_ERROR = 'REDUX_THUNK_LOAD_MOBILES_ERROR';
 
 export const loadMobiles = () => dispatch => {
    dispatch({ type: LOAD_MOBILES_LOADING });
@@ -27,6 +30,8 @@ export const loadMobile = (selectedId) => dispatch => {
         )
  };
 
+ export const addToCart = (selectedId) => dispatch =>({type: CART_ADD_MOBILE_SUCCESS , cart : {"selectedMobile" : "id"}});
+
  export default () => {
-    return { loadMobiles, loadMobile } 
+    return { loadMobiles, loadMobile , addToCart} 
  }

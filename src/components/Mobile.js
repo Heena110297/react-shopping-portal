@@ -13,6 +13,37 @@ class Mobiles extends React.Component {
     this.props.history.push("/detail", { selectedMobile: id });
   }
 
+  addToCart = (id) => {
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    console.log(cart);
+    if (cart) {
+      const existingProduct = cart.filter((p) => {
+        return p.id === id;
+      });
+      if (existingProduct.length > 0) {
+        existingProduct.map((p) => {
+          p.id = id;
+          p.qty = p.qty + 1;
+          return p;
+        });
+      } else {
+        cart.push({
+          id: id,
+          qty: 1,
+        });
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+    } else {
+      const newProduct = [
+        {
+          id: id,
+          qty: 1,
+        },
+      ];
+      localStorage.setItem("cart", JSON.stringify(newProduct));
+      console.log(JSON.stringify(localStorage.getItem("cart")));
+    }
+  };
   render() {
     if (this.props.loading) {
       return <div>Loading</div>;
@@ -46,7 +77,7 @@ class Mobiles extends React.Component {
                   </Button>
                 </td>
                 <td>
-                  <Button>Add to cart</Button>
+                  <Button onClick={() => this.addToCart(u.id)}>Add to cart</Button>
                 </td>
               </tr>
             ))}
@@ -69,6 +100,6 @@ const mapStateToProps = (state) => ({
   error: state.error,
 });
 const mapDispatchToProps = {
-  loadMobiles,
+  loadMobiles
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Mobiles);

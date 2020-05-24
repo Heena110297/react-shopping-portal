@@ -10,6 +10,38 @@ class MobileDetail extends React.Component {
     const selectedMobile = this.props.location.state.selectedMobile;
     this.props.loadMobile(selectedMobile);
   }
+
+  addToCart = (id) => {
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    console.log(cart);
+    if (cart) {
+      const existingProduct = cart.filter((p) => {
+        return p.id === id;
+      });
+      if (existingProduct.length > 0) {
+        existingProduct.map((p) => {
+          p.id = id;
+          p.qty = p.qty + 1;
+          return p;
+        });
+      } else {
+        cart.push({
+          id: id,
+          qty: 1,
+        });
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+    } else {
+      const newProduct = [
+        {
+          id: id,
+          qty: 1,
+        },
+      ];
+      localStorage.setItem("cart", JSON.stringify(newProduct));
+      console.log(JSON.stringify(localStorage.getItem("cart")));
+    }
+  };
   render() {
     if (this.props.loading) {
       return <div>Loading</div>;
@@ -18,14 +50,18 @@ class MobileDetail extends React.Component {
       return <div style={{ color: "red" }}>ERROR: {this.props.error}</div>;
     }
     return (
-        <Table striped bordered hover>
+      <Table striped bordered hover>
         <thead>
           <tr>
-            <th colSpan="2"  >
-              <div align="center" justifyContent= "center">
-              <Image src={this.props.data.image} height="300px" width="auto"></Image>
+            <th colSpan="2">
+              <div align="center" justifycontent="center">
+                <Image
+                  src={this.props.data.image}
+                  height="300px"
+                  width="auto"
+                ></Image>
               </div>
-              </th>
+            </th>
           </tr>
           <tr>
             <th>Brand</th>
@@ -47,13 +83,15 @@ class MobileDetail extends React.Component {
             <th>Battery</th>
             <td>{this.props.data.battery}</td>
           </tr>
-          <th colSpan="2" >
-              <div justifyContent= "center" align="center">
-             <Button>
-               Add to Cart 
-             </Button>
-             </div>
-              </th>
+          <tr>
+            <th colSpan="2">
+              <div justifycontent="center" align="center">
+                <Button onClick={() => this.addToCart(this.props.data.id)}>
+                  Add to Cart
+                </Button>
+              </div>
+            </th>
+          </tr>
         </thead>
         <tbody />
       </Table>
@@ -61,6 +99,7 @@ class MobileDetail extends React.Component {
   }
 }
 const mapStateToProps = (state) => ({
+  cart: state.cart,
   data: state.data,
   loading: state.loading,
   error: state.error,
