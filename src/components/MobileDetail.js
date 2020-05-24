@@ -11,31 +11,40 @@ class MobileDetail extends React.Component {
     this.props.loadMobile(selectedMobile);
   }
 
-  addToCart = (id) => {
+  addToCart = (mobileDetail) => {
     const cart = JSON.parse(localStorage.getItem("cart"));
     console.log(cart);
     if (cart) {
       const existingProduct = cart.filter((p) => {
-        return p.id === id;
+        return p.id === mobileDetail.id;
       });
       if (existingProduct.length > 0) {
         existingProduct.map((p) => {
-          p.id = id;
+          p.id = mobileDetail.id;
+          p.name = mobileDetail.name;
+          p.price=mobileDetail.price;
+          p.image = mobileDetail.image;
           p.qty = p.qty + 1;
           return p;
         });
       } else {
         cart.push({
-          id: id,
-          qty: 1,
+          id: mobileDetail.id,
+          name :mobileDetail.name,
+          price:mobileDetail.price,
+          image : mobileDetail.image,
+          qty: 1
         });
       }
       localStorage.setItem("cart", JSON.stringify(cart));
     } else {
       const newProduct = [
         {
-          id: id,
-          qty: 1,
+          id: mobileDetail.id,
+          name :mobileDetail.name,
+          price:mobileDetail.price,
+          image : mobileDetail.image,
+          qty: 1
         },
       ];
       localStorage.setItem("cart", JSON.stringify(newProduct));
@@ -86,7 +95,7 @@ class MobileDetail extends React.Component {
           <tr>
             <th colSpan="2">
               <div justifycontent="center" align="center">
-                <Button onClick={() => this.addToCart(this.props.data.id)}>
+                <Button onClick={() => this.addToCart(this.props.data)}>
                   Add to Cart
                 </Button>
               </div>

@@ -1,18 +1,13 @@
-import * as React from "react";
-import { connect } from "react-redux";
-import Table from "react-bootstrap/Table";
+import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
+import Table from "react-bootstrap/Table";
 import Image from "react-bootstrap/Image";
-import { loadMobiles } from "./../store/actions/actions";
-class Mobiles extends React.Component {
-  componentDidMount() {
-    this.props.loadMobiles();
-  }
 
-  viewDetails(id) {
-    this.props.history.push("/detail", { selectedMobile: id });
-  }
-
+class Cart extends Component {
+  routeChange = () => {
+    let path = "/dashboard";
+    this.props.history.push(path);
+  };
   addToCart = (mobileDetail) => {
     const cart = JSON.parse(localStorage.getItem("cart"));
     console.log(cart);
@@ -54,61 +49,58 @@ class Mobiles extends React.Component {
     }
   };
   render() {
-    if (this.props.loading) {
-      return <div>Loading</div>;
-    }
-    if (this.props.error) {
-      return <div style={{ color: "red" }}>ERROR: {this.props.error}</div>;
-    }
-    if (this.props.data.length > 0) {
+    const cartItems = JSON.parse(localStorage.getItem("cart"));
+    console.log(cartItems)
+    if (cartItems) {
       return (
-        <Table striped bordered hover>
+          <div>
+        <Table striped bordered hover size="sm">
           <thead>
             <tr>
               <th>Image</th>
-              <th>Brand</th>
-              <th>Price</th>
-              <th>Details</th>
-              <th>Add to cart</th>
+              <th>Product Name</th>
+              <th>Price per unit</th>
+              <th>Quantity</th>
+              <th>Total price</th>
             </tr>
           </thead>
           <tbody>
-            {this.props.data.map((u) => (
-              <tr key={u.id}>
+            {cartItems.map((item) => (
+              <tr key={item.id}>
                 <td>
-                  <Image src={u.image} height="100px" width="auto"></Image>{" "}
+                  <Image src={item.image} height="100px" width="auto"></Image>{" "}
                 </td>
-                <td>{u.brand}</td>
-                <td>{u.price}</td>
+                <td>{item.name}</td>
+                <td>{item.price}</td>
                 <td>
-                  <Button onClick={() => this.viewDetails(u.id)}>
-                    View Details
-                  </Button>
+                  {item.qty}
+                  <br>
+                  </br>
+                  <button onClick={this.addToCart(item)} >
+                  <i className="fa fa-plus"></i> 
+                </button>
+                  <button><i className="fa fa-minus"></i> </button>
                 </td>
                 <td>
-                  <Button onClick={() => this.addToCart(u)}>Add to cart</Button>
+                 {item.qty * item.price}
                 </td>
               </tr>
             ))}
+
           </tbody>
         </Table>
-      );
-    }
-    else{
-      return(
-        <div> 
-          No Mobiles found . Rendered from mobiles component       
         </div>
-      )
+      );
+    } else {
+      return (
+        <div align="center">
+          <h1>Add Items to your Cart ! ^_^ </h1>
+          <br></br>
+          <Button onClick={this.routeChange}>Go to Dashboard ! </Button>
+        </div>
+      );
     }
   }
 }
-const mapStateToProps = (state) => ({
-  data: state.data,
-  loading: state.loading,
-  error: state.error,
-});
-const mapDispatchToProps = {
-  loadMobiles
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Mobiles);
+
+export default Cart;
