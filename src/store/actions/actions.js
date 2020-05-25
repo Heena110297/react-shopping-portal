@@ -7,6 +7,7 @@ export const LOAD_MOBILES_ERROR = "REDUX_THUNK_LOAD_MOBILES_ERROR";
 export const AUTHENTICATION_SUCCESS = "AUTHENTICATION_SUCCESS";
 export const AUTHENTICATION_FAILURE = "AUTHENTICATION_FAILURE";
 export const AUTHENTICATION_START = "AUTHENTICATION_START";
+export const LOGOUT = "LOGOUT";
 
 export const LOAD_MOBILE_DETAIL_LOADING =
   "REDUX_THUNK_LOAD_MOBILE_DETAIL_LOADING";
@@ -63,9 +64,9 @@ export const orderPlaced = () => (dispatch) => {
   dispatch({ type: ORDER_PLACED });
 };
 
-export const authenticate =(email,password) =>(dispatch) =>{
-  dispatch({type: AUTHENTICATION_START});
-  Api.getUser(email,password)
+export const authenticate = (email, password) => (dispatch) => {
+  dispatch({ type: AUTHENTICATION_START });
+  Api.getUser(email, password)
     .then((response) => response.json())
     .then(
       (data) => dispatch({ type: AUTHENTICATION_SUCCESS, data }),
@@ -75,7 +76,19 @@ export const authenticate =(email,password) =>(dispatch) =>{
           error: error.message || "Login Failed",
         })
     );
-}
+};
+
+export const logout = () => (dispatch) => {
+  dispatch({ type: LOGOUT });
+};
+
 export default () => {
-  return { loadMobiles, loadMobile, addItemToCart, removeItemFromCart, authenticate };
+  return {
+    loadMobiles,
+    loadMobile,
+    addItemToCart,
+    removeItemFromCart,
+    authenticate,
+    logout,
+  };
 };

@@ -11,7 +11,7 @@ const toolbar = ( props ) => (
            <h5 color="white"> Shopping Portal </h5>
         </div>
         <nav className={classes.DesktopOnly}>
-            <NavigationItems />
+            <NavigationItems loggedIn={props.loggedIn} username={props.username}/>
         </nav>
     </header>
 );

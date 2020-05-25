@@ -4,6 +4,7 @@ import Input from "../../components/UI/Input/Input";
 import classes from "./Auth.module.css";
 import { connect } from "react-redux";
 import {authenticate} from '../../store/actions/actions'
+import { Redirect } from "react-router-dom";
 
 class Auth extends Component {
   state = {
@@ -92,10 +93,7 @@ class Auth extends Component {
       this.state.controls.email.value,
       this.state.controls.password.value
     );
-    if(this.props.loggedIn === true){
-      let path = "/dashboard";
-      this.props.history.push(path);
-    }
+    this.forceUpdate();
   };
   render() {
     const formElementsArray = [];
@@ -123,6 +121,7 @@ class Auth extends Component {
           {form}
           <Button btnType="Success">Submit</Button>
         </form>
+        { this.props.loggedIn? <Redirect to="/" /> : this.props.error}
       </div>
     );
   }

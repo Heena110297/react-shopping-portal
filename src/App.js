@@ -8,6 +8,7 @@ import Auth from './components/Authentication/Auth';
 import Cart  from './components/Cart/Cart';
 import MobileDetail from "./components/ProductDetail/MobileDetail";
 import Mobile from "./components/Products/Mobile";
+import Logout from "./components/Authentication/Logout";
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
           <Route path="/auth" component={Auth} />
           <Route path ="/cart" component={Cart}/>
           <Route path="/detail" component={MobileDetail} />
+          <Route path="/logout" component={Logout} />
           <Route path="/" component={Mobile} />
         </Switch>
       </Layout>

@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import Dropdown from "react-bootstrap/Dropdown";
 import { loadMobiles, addItemToCart } from "../../store/actions/actions";
 class Mobiles extends React.Component {
   componentDidMount() {
@@ -25,44 +27,50 @@ class Mobiles extends React.Component {
     }
     if (this.props.data.length > 0) {
       return (
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Details</th>
-              <th>Add to cart</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.data.map((u) => (
-              <tr key={u.id}>
-                <td>
-                  <Image src={u.image} height="100px" width="auto"></Image>{" "}
-                </td>
-                <td>{u.name}</td>
-                <td><i className="fa fa-inr"></i> {u.price}</td>
-                <td>
-                  <Button onClick={() => this.viewDetails(u.id)}>
-                    View Details
-                  </Button>
-                </td>
-                <td>
-                  <Button onClick={() => this.addToCart(u)}>Add to cart</Button>
-                </td>
+        <div align ="center">
+          <DropdownButton id="dropdown-basic-button" title="Sort">
+            <Dropdown.Item href="#/action-1">Price: High to Low</Dropdown.Item>
+            <Dropdown.Item href="#/action-2">Price: Low to High</Dropdown.Item>
+          </DropdownButton>
+          <br></br>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Details</th>
+                <th>Add to cart</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      );
-    }
-    else{
-      return(
-        <div> 
-          No Mobiles found . Rendered from mobiles component       
+            </thead>
+            <tbody>
+              {this.props.data.map((u) => (
+                <tr key={u.id}>
+                  <td>
+                    <Image src={u.image} height="100px" width="auto"></Image>{" "}
+                  </td>
+                  <td>{u.name}</td>
+                  <td>
+                    <i className="fa fa-inr"></i> {u.price}
+                  </td>
+                  <td>
+                    <Button onClick={() => this.viewDetails(u.id)}>
+                      View Details
+                    </Button>
+                  </td>
+                  <td>
+                    <Button onClick={() => this.addToCart(u)}>
+                      Add to cart
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
         </div>
-      )
+      );
+    } else {
+      return <div>No Mobiles found . Rendered from mobiles component</div>;
     }
   }
 }
@@ -74,6 +82,6 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = {
   loadMobiles,
-  addItemToCart
+  addItemToCart,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Mobiles);

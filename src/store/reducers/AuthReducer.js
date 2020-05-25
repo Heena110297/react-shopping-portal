@@ -2,6 +2,7 @@ import {
   AUTHENTICATION_SUCCESS,
   AUTHENTICATION_FAILURE,
   AUTHENTICATION_START,
+  LOGOUT,
 } from "../actions/actions";
 const initialState = {
  
@@ -32,6 +33,14 @@ export default function AuthReducer(state = initialState, action) {
         ...state,
         loggedIn: false,
         error: "Login Failed. Please try again !",
+      };
+    }
+    case LOGOUT: {
+      return {
+        ...state,
+        loggedIn: false,
+        username:'',
+        error: "",
       };
     }
     default: {
