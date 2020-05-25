@@ -21,6 +21,9 @@ class Cart extends Component {
     this.forceUpdate();
   };
 
+  calculateTotal =()=>{
+    return this.props.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+  }
   removeFromCart = (item) => {
     this.props.removeItemFromCart(item);
     this.forceUpdate();
@@ -75,6 +78,21 @@ class Cart extends Component {
                   </td>
                 </tr>
               ))}
+              <tr>
+                <td>
+                  <strong>Total Amount: </strong> 
+                </td>
+                <td>
+                  
+                </td>
+                <td>
+                  
+                </td>
+                <td>
+                  
+                </td>
+                  <td> <i className="fa fa-inr"></i> {this.calculateTotal()}</td>
+                </tr>
             </tbody>
           </Table>
           <br></br>

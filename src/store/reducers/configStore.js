@@ -9,7 +9,8 @@ const persistConfig = {
   key: 'cartReducer',
   storage,
   whitelist: [
-          'cr'
+          'cr',
+          'auth'
   ]
 }
  

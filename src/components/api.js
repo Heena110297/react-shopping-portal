@@ -21,4 +21,11 @@ export default class Api {
       method: "GET",
     });
   }
+ static getMobilesOnSearch(query){
+   const uri = `${API_BASE_ADDRESS}/mobiles?q=${query}`;
+   console.log(uri);
+   return fetch(uri, {
+    method: "GET",
+  });
+ }
 }
