@@ -2,8 +2,14 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Image from "react-bootstrap/Image";
-import { addItemToCart ,removeItemFromCart } from "./../../store/actions/actions";
+import {
+  addItemToCart,
+  removeItemFromCart,
+  placeOrder,
+  orderPlaced,
+} from "./../../store/actions/actions";
 import { connect } from "react-redux";
+import Modal from "react-bootstrap/Modal";
 
 class Cart extends Component {
   routeChange = () => {
@@ -19,10 +25,19 @@ class Cart extends Component {
     this.props.removeItemFromCart(item);
     this.forceUpdate();
   };
+
+  placeOrder = () => {
+    this.props.placeOrder();
+    this.forceUpdate();
+  };
+  handleClose = () => {
+    this.props.orderPlaced();
+    this.forceUpdate();
+  };
   render() {
     const cartItems = this.props.cart;
     console.log(cartItems);
-    if (cartItems.length>0) {
+    if (cartItems.length > 0) {
       return (
         <div>
           <Table striped bordered hover size="sm">
@@ -62,6 +77,25 @@ class Cart extends Component {
               ))}
             </tbody>
           </Table>
+          <br></br>
+          <div align="center">
+            { this.props.loggedIn && 
+            <Button onClick={this.placeOrder}>Place Order</Button>
+    }
+          </div>
+          <Modal show={this.props.showModal} onHide={this.handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>
+                ORDER PLACED <i className="fa fa-smile-o"></i>
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Order Id: {Date.now()}</Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={this.handleClose}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </div>
       );
     } else {
@@ -77,11 +111,15 @@ class Cart extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  showModal: state.cr.showModal,
+  loggedIn: state.auth.loggedIn,
   cart: state.cr.cart,
 });
 
 const mapDispatchToProps = {
   addItemToCart,
-  removeItemFromCart
+  removeItemFromCart,
+  placeOrder,
+  orderPlaced,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

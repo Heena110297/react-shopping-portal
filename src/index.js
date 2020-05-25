@@ -19,7 +19,7 @@ const app = (
   </Provider>
   </PersistGate>
 );
-
+store.subscribe(() => console.log("store", store.getState()));
 ReactDOM.render(app, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change

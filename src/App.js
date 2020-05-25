@@ -4,10 +4,10 @@ import "font-awesome/css/font-awesome.min.css";
 import { Route, Switch } from "react-router-dom";
 import Layout from "./hoc/Layout/Layout";
 import "./App.css";
-import Mobile from "./components/Mobile";
-import MobileDetail from "./components/MobileDetail";
-import Auth from './containers/Auth/Auth';
+import Auth from './components/Authentication/Auth';
 import Cart  from './components/Cart/Cart';
+import MobileDetail from "./components/ProductDetail/MobileDetail";
+import Mobile from "./components/Products/Mobile";
 
 class App extends Component {
   render() {

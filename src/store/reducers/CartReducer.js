@@ -1,9 +1,11 @@
-import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions/actions";
+import { ADD_TO_CART, REMOVE_FROM_CART, PLACE_ORDER, ORDER_PLACED } from "../actions/actions";
 const initialState = {
   cart: [],
+  showModal:false
 };
 export default function CartReducer(state = initialState, action) {
   switch (action.type) {
+   
     case ADD_TO_CART: {
       const cart = state.cart;
       console.log(cart);
@@ -83,6 +85,18 @@ export default function CartReducer(state = initialState, action) {
         cart: cart,
       };
     }
+    case PLACE_ORDER:{
+      return{...state,
+      showModal :true
+      }
+    }
+    case ORDER_PLACED:{
+      return{...state,
+      showModal :false,
+      cart:[]
+      }
+    }
+  
     default: {
       return state;
     }

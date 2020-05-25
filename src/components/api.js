@@ -14,4 +14,11 @@ export default class Api {
       method: "GET",
     });
   }
+  static getUser(email,password) {
+    const uri = `${API_BASE_ADDRESS}/user?email=${email}&password=${password}`;
+    console.log(uri);
+    return fetch(uri, {
+      method: "GET",
+    });
+  }
 }

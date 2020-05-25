@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
-import { loadMobile, addItemToCart } from "./../store/actions/actions";
+import { loadMobile, addItemToCart } from "../../store/actions/actions";
 
 class MobileDetail extends React.Component {
   componentDidMount() {

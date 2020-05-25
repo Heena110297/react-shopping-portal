@@ -3,6 +3,7 @@ import Button from "../../components/UI/Button/Button";
 import Input from "../../components/UI/Input/Input";
 import classes from "./Auth.module.css";
 import { connect } from "react-redux";
+import {authenticate} from '../../store/actions/actions'
 
 class Auth extends Component {
   state = {
@@ -86,10 +87,15 @@ class Auth extends Component {
 
   submitHandler = (event) => {
     event.preventDefault();
-    this.props.onAuth(
+    console.log(this.state.controls.email.value)
+    this.props.authenticate(
       this.state.controls.email.value,
       this.state.controls.password.value
     );
+    if(this.props.loggedIn === true){
+      let path = "/dashboard";
+      this.props.history.push(path);
+    }
   };
   render() {
     const formElementsArray = [];
@@ -122,10 +128,14 @@ class Auth extends Component {
   }
 }
 
-/* const mapDispatchToProps = (dispatch) => {
-  return {
-    onAuth: (email, password) => dispatch(actions.auth(email, password)),
-  };
-}; */
+const mapStateToProps = (state) => ({
+  username: state.auth.username,
+  loggedIn: state.auth.loggedIn,
+  error: state.auth.error,
+});
 
-export default (Auth);
+const mapDispatchToProps = {
+  authenticate
+};
+
+export default connect (mapStateToProps,mapDispatchToProps)(Auth);
