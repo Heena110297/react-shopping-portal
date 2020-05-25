@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
-import { loadMobile } from "./../store/actions/actions";
+import { loadMobile, addItemToCart } from "./../store/actions/actions";
 
 class MobileDetail extends React.Component {
   componentDidMount() {
@@ -11,45 +11,8 @@ class MobileDetail extends React.Component {
     this.props.loadMobile(selectedMobile);
   }
 
-  addToCart = (mobileDetail) => {
-    const cart = JSON.parse(localStorage.getItem("cart"));
-    console.log(cart);
-    if (cart) {
-      const existingProduct = cart.filter((p) => {
-        return p.id === mobileDetail.id;
-      });
-      if (existingProduct.length > 0) {
-        existingProduct.map((p) => {
-          p.id = mobileDetail.id;
-          p.name = mobileDetail.name;
-          p.price=mobileDetail.price;
-          p.image = mobileDetail.image;
-          p.qty = p.qty + 1;
-          return p;
-        });
-      } else {
-        cart.push({
-          id: mobileDetail.id,
-          name :mobileDetail.name,
-          price:mobileDetail.price,
-          image : mobileDetail.image,
-          qty: 1
-        });
-      }
-      localStorage.setItem("cart", JSON.stringify(cart));
-    } else {
-      const newProduct = [
-        {
-          id: mobileDetail.id,
-          name :mobileDetail.name,
-          price:mobileDetail.price,
-          image : mobileDetail.image,
-          qty: 1
-        },
-      ];
-      localStorage.setItem("cart", JSON.stringify(newProduct));
-      console.log(JSON.stringify(localStorage.getItem("cart")));
-    }
+  addToCart = (item) => {
+    this.props.addItemToCart(item);
   };
   render() {
     if (this.props.loading) {
@@ -115,5 +78,6 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = {
   loadMobile,
+  addItemToCart
 };
 export default connect(mapStateToProps, mapDispatchToProps)(MobileDetail);
