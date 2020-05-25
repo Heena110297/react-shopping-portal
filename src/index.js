@@ -7,11 +7,18 @@ import { logger } from "redux-logger";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import reducer from "./store/reducers/index";
+import ProductsReducer from './store/reducers/ProductsReducer';
+import ProductDetailReducer from './store/reducers/ProductDetailReducer';
+import CartReducer from './store/reducers/CartReducer';
 
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, combineReducers} from "redux";
 
-const store = createStore(reducer, applyMiddleware(thunk, logger));
+const rootReducer = combineReducers({
+   pdr :ProductDetailReducer,
+   pr: ProductsReducer,
+   cr: CartReducer
+})
+const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 const app = (
   <Provider store={store}>

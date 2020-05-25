@@ -67,10 +67,10 @@ class Mobiles extends React.Component {
   }
 }
 const mapStateToProps = (state) => ({
-  cart: state.cart,
-  data: state.data,
-  loading: state.loading,
-  error: state.error,
+  cart: state.cr.cart,
+  data: state.pr.data,
+  loading: state.pr.loading,
+  error: state.pr.error,
 });
 const mapDispatchToProps = {
   loadMobiles,

@@ -1,63 +1,9 @@
-import {
-  LOAD_MOBILES_ERROR,
-  LOAD_MOBILES_LOADING,
-  LOAD_MOBILES_SUCCESS,
-  LOAD_MOBILE_DETAIL_ERROR,
-  LOAD_MOBILE_DETAIL_LOADING,
-  LOAD_MOBILE_DETAIL_SUCCESS,
-  ADD_TO_CART,
-  REMOVE_FROM_CART,
-} from "../actions/actions";
+import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions/actions";
 const initialState = {
   cart: [],
-  data: [],
-  loading: false,
-  error: "",
 };
-export default function reducer(state = initialState, action) {
+export default function CartReducer(state = initialState, action) {
   switch (action.type) {
-    case LOAD_MOBILES_LOADING: {
-      return {
-        ...state,
-        loading: true,
-        error: "",
-      };
-    }
-    case LOAD_MOBILES_SUCCESS: {
-      return {
-        ...state,
-        data: action.data,
-        loading: false,
-      };
-    }
-    case LOAD_MOBILES_ERROR: {
-      return {
-        ...state,
-        loading: false,
-        error: action.error,
-      };
-    }
-    case LOAD_MOBILE_DETAIL_LOADING: {
-      return {
-        ...state,
-        loading: true,
-        error: "",
-      };
-    }
-    case LOAD_MOBILE_DETAIL_SUCCESS: {
-      return {
-        ...state,
-        data: action.data,
-        loading: false,
-      };
-    }
-    case LOAD_MOBILE_DETAIL_ERROR: {
-      return {
-        ...state,
-        loading: false,
-        error: action.error,
-      };
-    }
     case ADD_TO_CART: {
       const cart = state.cart;
       console.log(cart);
@@ -111,10 +57,15 @@ export default function reducer(state = initialState, action) {
         const existingProduct = cart.filter((p) => {
           return p.id === action.item.id;
         });
-        const index = cart.findIndex(p => p.id===action.item.id && p.qty === 1);
-        let deletedProduct=[];
-        if(index>-1){
-        deletedProduct = cart.splice(cart.findIndex(p => p.id===action.item.id && p.qty === 1),1);
+        const index = cart.findIndex(
+          (p) => p.id === action.item.id && p.qty === 1
+        );
+        let deletedProduct = [];
+        if (index > -1) {
+          deletedProduct = cart.splice(
+            cart.findIndex((p) => p.id === action.item.id && p.qty === 1),
+            1
+          );
         }
         if (existingProduct.length > 0 && deletedProduct.length === 0) {
           existingProduct.map((p) => {
