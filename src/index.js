@@ -7,25 +7,17 @@ import { logger } from "redux-logger";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import ProductsReducer from './store/reducers/ProductsReducer';
-import ProductDetailReducer from './store/reducers/ProductDetailReducer';
-import CartReducer from './store/reducers/CartReducer';
-
-import { createStore, applyMiddleware, combineReducers} from "redux";
-
-const rootReducer = combineReducers({
-   pdr :ProductDetailReducer,
-   pr: ProductsReducer,
-   cr: CartReducer
-})
-const store = createStore(rootReducer, applyMiddleware(thunk, logger));
+import { PersistGate } from "redux-persist/lib/integration/react";
+import { store, persistor } from './store/reducers/configStore';
 
 const app = (
+  <PersistGate persistor={persistor} >
   <Provider store={store}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
   </Provider>
+  </PersistGate>
 );
 
 ReactDOM.render(app, document.getElementById("root"));
